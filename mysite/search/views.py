@@ -4,6 +4,9 @@ from django.http import HttpResponse
 def search_form(request):
     return render(request,'search/search_form.html')
 
+def index(request):
+    return render(request, 'search/index.html')
+
 def search(request):
     if 'q' in request.GET:
         message = 'You searched for: %r' % request.GET['q']
