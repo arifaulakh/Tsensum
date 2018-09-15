@@ -1,4 +1,4 @@
-from twitter_pulls import get_twitter_data
+from .twitter_pulls import get_twitter_data
 from collections import defaultdict
 import json
 import indicoio
