@@ -1,7 +1,7 @@
 from .twitter_pulls import get_twitter_data
 import time
 import indicoio
-indicoio.config.api_key = 'b3962258311d6c73574642b4877813b9'
+indicoio.config.api_key = '24a870147edb0323a7dd5bc1f2185171'
 
 def analyze(query):
     tweets = get_twitter_data(query)
