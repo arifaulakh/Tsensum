@@ -1,5 +1,7 @@
 import twitter
+import json
 
+# twitter api setup
 consumer_key = "8kpMQ4bOrZyse7UIZwWbnFnkv"
 consumer_secret = "x2mUXcR3CtuYpZ62xnspwUezaqMSPGiy9GKAuSlydkv717h3kD"
 access_token = "3044703939-YbNnK5McurY7Y6OLB8duKlJrVFzUlgFFieIQTc1"
@@ -10,6 +12,14 @@ api = twitter.Api(consumer_key=consumer_key,
                   access_token_key=access_token,
                   access_token_secret=access_secret)
 
+# query settings
+query = "Donald Trump"
+result_type = "mixed"
+geocode = ""
+
+
 results = api.GetSearch(
-    raw_query="q=twitter%20&result_type=recent&since=2014-07-19&count=100")
-print(results)
+    raw_query="q=%s&result_type=%s&count=100" % (query, result_type))
+tweet = results[0]
+json_str = json.dumps(tweet._json)
+print(json.loads(json_str)["created_at"])
