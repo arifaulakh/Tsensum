@@ -1,6 +1,7 @@
 from twitter_pulls import get_twitter_data
 from collections import defaultdict
 import json
+import math
 import indicoio
 indicoio.config.api_key = '24a870147edb0323a7dd5bc1f2185171'
 
@@ -10,14 +11,17 @@ def get_keywords(query):
 
     num_tweets = len(tweets)
 
-    keywords = indicoio.keywords(tweet_text, version = 2, top_n = 5, threshold = 0.0)
+    n = 5 # can be changed
+
+    keywords = indicoio.keywords(tweet_text, version = 2, top_n = n)
     d2 = defaultdict(float)
     for d in keywords:
         for key in d:
             d2[key] += d[key] # final is sum of probabilities
 
     # only keep edges with high connectivity
-    minimum = 5
+    c = 0.01 # can be changed
+    minimum = c*num_tweets*math.sqrt(n) # can be changed
     final = {}
     for key in d2:
         if d2[key] > minimum:
@@ -26,7 +30,7 @@ def get_keywords(query):
     return final
 
 def get_graph(query):
-    depth = 3
+    depth = 3 # can be changed
     levels = [[]]*depth
     levels[0].append(query)
     adj = defaultdict(lambda: defaultdict(lambda: {'weight': 0.0}))
@@ -37,7 +41,7 @@ def get_graph(query):
             for v in new:
                 if v not in adj:
                     levels[i+1].append(v)
-                print('Edge from %s to %s' % (u, v))
                 adj[u][v]['weight'] += new[v]
                 adj[v][u]['weight'] += new[v]
     return json.loads(json.dumps(adj)) # convert defaultdict to dict
+
