@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>{% block pageTitle %}Tsensum{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="../../static/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Nunito" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+</head>
+<body>
+    {% block script %}{% endblock %}
+    <div class="header">
+        Tsensum
+    </div>
+    {% block content %}{% endblock %}
+</body>
+</html>
