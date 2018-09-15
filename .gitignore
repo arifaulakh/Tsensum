@@ -1,4 +1,9 @@
 *.xml
 *.iml
 *.xml___jb_tmp___
+mysite/.DS_Store
+mysite/mysite/__pycache__/__init__.cpython-36.pyc
+mysite/mysite/__pycache__/__init__.cpython-36.pyc
+mysite/mysite/__pycache__/settings.cpython-36.pyc
+mysite/search/migrations/__pycache__/__init__.cpython-36.pyc
 *.pyc
