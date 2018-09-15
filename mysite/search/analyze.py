@@ -1,5 +1,4 @@
 from .twitter_pulls import get_twitter_data
-import time
 import indicoio
 indicoio.config.api_key = '24a870147edb0323a7dd5bc1f2185171'
 
