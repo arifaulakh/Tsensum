@@ -25,11 +25,12 @@ def get_keywords(query):
     final = {}
     for key in d2:
         if d2[key] > minimum:
-            final[key] = d2[key]
+            final[key.lower()] = d2[key]
 
     return final
 
 def get_graph(query):
+    query = query.lower()
     depth = 3 # can be changed
     levels = [[]]*depth
     levels[0].append(query)
@@ -39,9 +40,12 @@ def get_graph(query):
             u = levels[i][j]
             new = get_keywords(levels[i][j])
             for v in new:
+                if v == 'rt':
+                    continue
                 if v not in adj:
                     levels[i+1].append(v)
                 adj[u][v]['weight'] += new[v]
                 adj[v][u]['weight'] += new[v]
     return json.loads(json.dumps(adj)) # convert defaultdict to dict
 
+print(get_graph('waterloo'))
