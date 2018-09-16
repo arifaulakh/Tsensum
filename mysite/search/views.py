@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .analyze import analyze
+from .keywords import get_graph
 # Create your views here.
 def search_form(request):
     return render(request,'search/search_form.html')
@@ -14,6 +14,6 @@ def search(request):
     else:
         m = 'You submitted an empty form.'
     tweet = request.GET['q']
-    sentiment = analyze(tweet)
-    message = 'The average sentiment for: %r is %f' % (tweet, sentiment)
+    graph = get_graph(tweet)
+    message = 'It works!'
     return HttpResponse(message)
