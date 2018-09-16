@@ -56,4 +56,5 @@ def get_graph(query):
     adj = json.loads(json.dumps(adj)) # convert defaultdict to dict
     return (adj, sentiments)
 
-print(get_graph('computer science'))
+if __name__ == "__main__":
+    print(get_graph('computer science'))
