@@ -15,7 +15,6 @@ class Tweet_Object:
         self.favorite_count = tweetDict["favorite_count"]
 
 def get_twitter_data(query):
-
     tweet_list = []
     id_list = []
     # twitter api setup
