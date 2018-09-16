@@ -4,7 +4,7 @@ import numpy
 import json
 import math
 import indicoio
-indicoio.config.api_key = '8114b4d9ee72031b8ac0a9f7148105a6'
+indicoio.config.api_key = '13395e1708bbc900ca6bf648f6209095'
 
 def get_keywords(query, level):
     tweets = get_twitter_data(query)
@@ -21,12 +21,12 @@ def get_keywords(query, level):
             d2[key] += d[key] # final is sum of probabilities
 
     # only keep edges with high connectivity
-    c = 0.007 # can be changed
+    c = 0.01 # can be changed
     minimum = c*num_tweets*math.sqrt(n)*level # can be changed
     final = {}
     for key in d2:
         if d2[key] > minimum:
-            final[key.lower()] = d2[key]
+            final[key.lower().replace("'", "")] = d2[key]
     
     sentiments = indicoio.sentiment(tweet_text)
     avg_sentiment = numpy.mean(sentiments)
@@ -35,6 +35,7 @@ def get_keywords(query, level):
 def get_graph(query):
     sentiments = {}
     query = query.lower()
+    query = query.replace("'", "")
     depth = 2 # can be changed
     levels = [[]]*depth
     levels[0].append(query)
@@ -54,6 +55,7 @@ def get_graph(query):
                 adj[u][v]['weight'] += new[v]
                 adj[v][u]['weight'] += new[v]
     adj = json.loads(json.dumps(adj)) # convert defaultdict to dict
+
     return (adj, sentiments)
 
 if __name__ == "__main__":

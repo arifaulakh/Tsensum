@@ -28,15 +28,25 @@ def get_twitter_data(query):
                       access_token_key=access_token,
                       access_token_secret=access_secret)
 
-    result_types = ["mixed", "popular", "recent"]
-    for query_type in result_types:
-        results = api.GetSearch(
-            raw_query="q=%s&result_type=%s&count=100" % (query, query_type))
+    # result_types = ["mixed", "popular", "recent"]
+    # for query_type in result_types:
+    #     results = api.GetSearch(
+    #         raw_query="q=%s&result_type=%s&count=100" % (query, query_type))
+    #
+    #     for tweetData in results:
+    #         tweet = Tweet_Object(tweetData)
+    #         if tweet.user_id not in id_list:
+    #             tweet_list.append(tweet)
+    #             id_list.append(tweet.tweet_id)
+    results = api.GetSearch(
+        raw_query="q=%s&result_type=%s&count=100" % (query, "popular"))
 
-        for tweetData in results:
-            tweet = Tweet_Object(tweetData)
-            if tweet.user_id not in id_list:
-                tweet_list.append(tweet)
-                id_list.append(tweet.tweet_id)
+    for tweetData in results:
+        tweet = Tweet_Object(tweetData)
+        tweet_list.append(tweet)
+        # if tweet.user_id not in id_list:
+        #     tweet_list.append(tweet)
+        #     id_list.append(tweet.tweet_id)
 
     return tweet_list
+

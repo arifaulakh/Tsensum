@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block script %}
+<script type="text/javascript">
+    function submitData(){
+        var q = document.getElementsByClassName("searchTerm")[0].value;
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/find', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState == 4 && xhr.status==200){
+                window.location.href = xhr.responseText;
+            }
+        }
+        xhr.send(JSON.stringify({query: q}));
+    }
+</script>
+
+{% endblock %}
+{% block content %} 
+    <div class=introtext>
+        Search and analyze the most recent and<br> popular tweets about anything!
+    </div>
+    <div class="searchwrap">
+        <div class="search">
+            <input type="text" class="searchTerm" placeholder="Twitter Query" name="q">
+            <button class="searchButton" onclick="submitData()">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </div> 
+{% endblock %}

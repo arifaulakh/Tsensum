@@ -1,0 +1,21 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>Page Title</title>
+</head>
+<body>
+    <img src="{{url_for('getImage')}}">
+</body>
+</html> -->
+{% extends "base.html" %}
+{% block script %}
+<script>
+    function goToMain(){
+        window.location.href = '/';
+    }
+</script>
+{% endblock %}
+{% block content %}
+<img src="{{url_for('getImage')}}">
+<button type="button" onclick="goToMain()">New Search</button>
+{% endblock %}
