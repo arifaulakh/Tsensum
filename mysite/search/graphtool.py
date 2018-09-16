@@ -4,7 +4,6 @@ from keywords import *
 from colour import Color
 import time
 
-
 def normalizeWeights(dict):
     normstart = time.time()
     maximum = 0
@@ -14,8 +13,6 @@ def normalizeWeights(dict):
     for firstTerm in dict:
         for secondTerm, weight in dict[firstTerm].items():
             dict[firstTerm][secondTerm]['weight'] /= (maximum / 5.0)
-    print('normalizetime: %f' % (float(time.time()) - float(normstart)))
-
 
 def drawNetworkGraph(edgedict, sentiments):
     normalizeWeights(edgedict)
@@ -25,30 +22,22 @@ def drawNetworkGraph(edgedict, sentiments):
         nodelist.append(key)
         c = 150.0 # increase to push colors further to red/green extremes
         red = (int)(255.0/(1+c**(2*sentiments[key]['color']-1)))
-        print(red)
         colorlist.append('#' + str(hex(red))[2:] + str(hex(255-red))[2:] + '00')
-    print(colorlist)
     edge_list = []
 
     for firstKey in edgedict:
         for secondKey in edgedict[firstKey]:
             edge_list.append((firstKey, secondKey, {'weight': edgedict[firstKey][secondKey]['weight']}))
 
-
     g = nx.from_dict_of_dicts(edgedict)
     pos = nx.spring_layout(g)
     edges = g.edges()
     G = nx.Graph()
     weights = [g[u][v]['weight'] for u, v in edges]
-    # G.add_nodes_from(nodelist)
-    # G.add_nodes_from([(1, dict(size=11)), (2, {'color': 'blue'})])
-
-    # G.add_edges_from(edge_list)
-    # nx.draw(G, with_labels=True, width=weights)
-    # nx.draw(g, pos, edges=edges, with_labels=True, node_color='#00aced', width=weights)
     G.add_edges_from(g.edges())
     nx.draw(G, pos, nodelist=nodelist, node_color=colorlist, with_labels=True, alpha=1, width=weights)
     plt.show()
+    plt.savefig("Graph.png", format="PNG")
 
 
 d, sentiments = ({'computer science': {'students': {'weight': 57.34121863799287},
